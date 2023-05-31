@@ -1,4 +1,4 @@
-# RTS-Game
+# ChronoConquer [Working Title]
 
 Unleash the power of human evolution and lead your civilization through three historically accurate epochs. From the primal *Paleolithic Age* to the advanced *Iron Age*, gather resources, expand your base, build defenses, research tech, train units, and attack enemies. Walls are mandatory in this game, and you must destroy all enemies to emerge as the ultimate ruler of the ages.
 
