@@ -1,6 +1,6 @@
 {
     "name": "DevRowInteractive.CameraController",
-    "rootNamespace": "",
+    "rootNamespace": "DevRowInteractive",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
