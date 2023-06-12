@@ -50,12 +50,7 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.World.Abstracts
         }
 
         public virtual bool IsMultiSelect() => false;
-        public virtual void Register()
-        {
-            Debug.LogError("REGISTERED!");
-            GameManager.Instance.SelectionManager.AddSelectableObject(gameObject);
-        }
-
+        public virtual void Register() => GameManager.Instance.SelectionManager.AddSelectableObject(gameObject);
         public virtual void UnRegister() => GameManager.Instance.PlayerStatsHandler.SelectableObjects.Remove(gameObject);
         public void OnDestroy() => UnRegister();
 
