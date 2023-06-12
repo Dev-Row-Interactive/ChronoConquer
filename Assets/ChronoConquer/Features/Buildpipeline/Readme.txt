@@ -1,0 +1,1 @@
+Make sure to set your preferred properties in the script itself & read the comments! 

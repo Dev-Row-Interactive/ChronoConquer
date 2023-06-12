@@ -1,0 +1,1 @@
+Implement the ISelectable interface and you're good to go. Register the selectable Gameobjects somewhere and feed them into the interface.

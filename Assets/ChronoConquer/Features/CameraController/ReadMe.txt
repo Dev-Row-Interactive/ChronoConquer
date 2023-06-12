@@ -1,0 +1,1 @@
+Use the Prefab. The Camera is rotated by 45 degrees on the y-axis to facilitate a staggered map. A simple input class is added to the prefab. Input can be overriden.

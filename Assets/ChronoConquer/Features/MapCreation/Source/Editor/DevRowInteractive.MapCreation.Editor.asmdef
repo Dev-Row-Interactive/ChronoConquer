@@ -1,0 +1,18 @@
+{
+    "name": "DevRowInteractive.MapCreation.Editor",
+    "rootNamespace": "DevRowInteractive",
+    "references": [
+        "GUID:81623a39a99588c488f00aefca6932cb"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

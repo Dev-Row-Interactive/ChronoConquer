@@ -1,0 +1,14 @@
+{
+    "name": "DevRowInteractive.EntityManagement",
+    "rootNamespace": "DevRowInteractive",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

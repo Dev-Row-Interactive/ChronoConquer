@@ -1,0 +1,2 @@
+This is basically a collection of Interfaces that could describe a class Unit, Building, Resource etc. There is a simple
+ExampleUnit that implements almost every Interface & a CombatManager. Check DemoScene. 

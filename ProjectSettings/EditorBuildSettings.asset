@@ -1,0 +1,13 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/ChronoConquer/Scenes/Playground.unity
+    guid: 284247c329619a04c97cdf116313edd7
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 837ce411884060047a51994e5a37e613,
+      type: 2}
