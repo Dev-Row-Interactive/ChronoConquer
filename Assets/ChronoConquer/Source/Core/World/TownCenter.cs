@@ -4,17 +4,18 @@ using UnityEngine;
 
 namespace DevRowInteractive.ChronoConquer.Source.Core.World
 {
-    public class TownCenter : Building , IDepositable<EResourceType, int>
+    public class TownCenter : Building , IDepositable
     {
-        public Vector3 GetDepositPosition() => transform.position - (transform.forward * 2);
-        
-        public void Deposit(EResourceType resourceType, int amount)
+        public Collider GetCollider()
         {
-            foreach (var resource in GameManager.Instance.PlayerStatsHandler.Resources)
+            Collider collider = GetComponent<Collider>();
+
+            if (collider == null)
             {
-                if(resource.ResourceType == resourceType)
-                    resource.ChangeAmount(amount);
+                Debug.LogWarning("No collider attached to IDepositable");
             }
+                
+            return collider;
         }
     }
 }

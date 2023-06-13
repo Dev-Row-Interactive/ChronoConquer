@@ -8,9 +8,8 @@ namespace DevRowInteractive.EntityManagement
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="T2"></typeparam>
-    public interface IDepositable <in T, in T2>
+    public interface IDepositable
     {
-        Vector3 GetDepositPosition();
-        void Deposit(T resourceType, T2 amount);
+        Collider GetCollider();
     }
 }

@@ -43,6 +43,11 @@ namespace DevRowInteractive.ChronoConquer
             SelectionHelpers.SetLayerRecursively(gameObject, formerLayer);
         }
 
+        public void Reset()
+        {
+            //
+        }
+
         public GameObject GetGameObjectReference() => gameObject;
         public bool IsMultiSelect() => true;
     }

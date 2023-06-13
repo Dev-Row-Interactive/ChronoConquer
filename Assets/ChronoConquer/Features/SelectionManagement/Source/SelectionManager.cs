@@ -20,7 +20,6 @@ namespace DevRowInteractive.SelectionManagement
         private Camera camera = new Camera();
 
         private List<GameObject> selectableObjects = new List<GameObject>();
-        public void SetSelectableObjects(List<GameObject> objects) => selectableObjects = objects;
         public void AddSelectableObject(GameObject obj) => selectableObjects.Add(obj);
 
         private void Start()
@@ -46,15 +45,16 @@ namespace DevRowInteractive.SelectionManagement
                 selectionStartPosition = screenMousePosition;
 
             selectionEndPosition = screenMousePosition;
+            
+            if(!isSelecting)
+                ClearHover();
 
             if (isSelecting)
                 HandleRectangleSelection();
 
             Ray ray = camera.ScreenPointToRay(screenMousePosition);
             RaycastHit hit;
-            
-            if(!isSelecting)
-                ClearHover();
+
 
             if (Physics.Raycast(ray, out hit))
             {
@@ -62,7 +62,11 @@ namespace DevRowInteractive.SelectionManagement
                 if (hit.transform.TryGetComponent(out ISelectable selectable))
                 {
                     if (!currentlyHovered.Contains(selectable))
-                        HandleHover(selectable);
+                    {
+                        if(!isSelecting)
+                            HandleHover(selectable);
+                    }
+                        
 
                     if (Mouse.current.leftButton.wasPressedThisFrame && !currentlySelected.Contains(selectable))
                         HandleSelection(selectable);
@@ -83,7 +87,6 @@ namespace DevRowInteractive.SelectionManagement
             
             foreach (GameObject obj in selectableObjects)
             {
-                Debug.LogError("SELECTABLE OBJECTS OVER 0");
                 if (selectionBounds.Contains(camera.WorldToViewportPoint(obj.transform.position)))
                 {
                     obj.TryGetComponent<ISelectable>(out var selectable);

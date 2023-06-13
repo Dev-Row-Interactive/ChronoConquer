@@ -20,10 +20,12 @@ namespace DevRowInteractive.SelectionManagement
         /// If the object is not hovered over anymore
         /// </summary>
         void EndHover();
+
         /// <summary>
         /// Handy method to return a reference to itself as Interfaces are not able to reference it's gameObject
         /// </summary>
         /// <returns></returns>
+        void Reset();
         GameObject GetGameObjectReference();
         /// <summary>
         /// Set true if object should be able to be selected by RectangleSelection

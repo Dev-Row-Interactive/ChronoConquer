@@ -1,6 +1,7 @@
+using System;
 using System.Collections;
 using DevRowInteractive.ChronoConquer.Source.Core.Controllers;
-using DevRowInteractive.ChronoConquer.Source.Core.Handlers;
+using DevRowInteractive.ChronoConquer.Source.Core.Globals;
 using DevRowInteractive.MapCreation;
 using DevRowInteractive.SelectionManagement;
 using UnityEngine;
@@ -14,18 +15,28 @@ namespace DevRowInteractive.ChronoConquer.Source.Core
         [HideInInspector] public SelectionManager SelectionManager;
         [HideInInspector] public Map Map;
         [HideInInspector] public UnitController UnitController;
-
+        public PlayerStats PlayerStats;
         public BuildingHandler BuildingHandler;
-        public PlayerStatsHandler PlayerStatsHandler;
+        public PlayerResources PlayerResources;
+        public PlayerSelectables PlayerSelectables;
+        public Gaia Gaia;
+
 
         private void Awake()
         {
             if (Instance == null) Instance = this;
             else Destroy(gameObject);
         }
-
         private void Start() => StartCoroutine(InitializeGame());
-        private void OnApplicationQuit() => EndGame();
+        private void OnDestroy()=> EndGame();
+
+        private void Update()
+        {
+            foreach (var resourceCount in PlayerResources.Resources)
+            {
+                Debug.Log(resourceCount.ResourceType.ToString() + ": " + resourceCount.Amount);
+            }
+        }
 
 
         /// <summary>
@@ -36,8 +47,14 @@ namespace DevRowInteractive.ChronoConquer.Source.Core
             Map = FindObjectOfType<Map>();
             SelectionManager = FindObjectOfType<SelectionManager>();
             UnitController = FindObjectOfType<UnitController>();
+
             BuildingHandler = new BuildingHandler();
-            PlayerStatsHandler = new PlayerStatsHandler();
+            PlayerStats = new PlayerStats();
+            PlayerResources = new PlayerResources();
+            PlayerSelectables = new PlayerSelectables();
+            Gaia = new Gaia();
+
+
 
             // Wait for the next frame to ensure all objects are initialized
             yield return null;

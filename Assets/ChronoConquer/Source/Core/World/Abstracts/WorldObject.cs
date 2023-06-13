@@ -44,6 +44,11 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.World.Abstracts
             SelectionHelpers.SetLayerRecursively(gameObject, formerLayer, "DoNotOutline");
         }
 
+        public virtual void Reset()
+        {
+            //
+        }
+
         public GameObject GetGameObjectReference()
         {
             return gameObject;
@@ -51,7 +56,7 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.World.Abstracts
 
         public virtual bool IsMultiSelect() => false;
         public virtual void Register() => GameManager.Instance.SelectionManager.AddSelectableObject(gameObject);
-        public virtual void UnRegister() => GameManager.Instance.PlayerStatsHandler.SelectableObjects.Remove(gameObject);
+        public virtual void UnRegister() => GameManager.Instance.PlayerSelectables.SelectableObjects.Remove(gameObject);
         public void OnDestroy() => UnRegister();
 
     }

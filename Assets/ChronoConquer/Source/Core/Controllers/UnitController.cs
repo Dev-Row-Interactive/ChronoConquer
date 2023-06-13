@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DevRowInteractive.ChronoConquer.Source.Core.World;
 using DevRowInteractive.EntityManagement;
+using DevRowInteractive.SelectionManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -36,16 +37,22 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.Controllers
 
                 else
                 {
+                    foreach (var obj in currentlySelectedObjects)
+                    {
+                        obj.TryGetComponent<ISelectable>(out var selectable);
+                        selectable.Reset();
+                    }
+
                     ArrangeUnits();
                 }
             }
         }
-        
+
         private void ArrangeUnits()
         {
             Vector3 mousePosition = GameManager.Instance.SelectionManager.GetWorldMousePosition();
             List<IMovable> movableObjects = new List<IMovable>();
-            
+
             foreach (var selectedObject in GameManager.Instance.SelectionManager.GetSelectedObjects())
             {
                 if (selectedObject.TryGetComponent<IMovable>(out var movable))
@@ -53,15 +60,15 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.Controllers
                     movableObjects.Add(movable);
                 }
             }
-            
+
             if (movableObjects.Count == 1)
             {
                 movableObjects[0].MakeMovement(mousePosition);
                 return;
             }
 
-            
-            int unitsPerRow = movableObjects.Count / 2;  // Assuming an even number of units
+
+            int unitsPerRow = movableObjects.Count / 2; // Assuming an even number of units
 
             for (int i = 0; i < movableObjects.Count; i++)
             {
