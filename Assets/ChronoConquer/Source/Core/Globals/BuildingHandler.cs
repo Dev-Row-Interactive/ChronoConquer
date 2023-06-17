@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using DevRowInteractive.ChronoConquer.Source.Core.World;
 using DevRowInteractive.ChronoConquer.Source.Core.World.Abstracts;
 using DevRowInteractive.EntityManagement;
 using UnityEngine;
@@ -31,10 +30,8 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.Globals
             foreach (IDepositable depositable in resourceDropOffPoints)
             {
                 Collider closestCollider = depositable.GetCollider();
-                Vector3 colliderPos = closestCollider.transform.position;
-                Quaternion colliderRot = closestCollider.transform.rotation;
-                
-                Vector3 closestPoint = Physics.ClosestPoint(target.position, closestCollider, colliderPos, colliderRot);
+
+                Vector3 closestPoint = closestCollider.ClosestPoint(target.position);
                 float distance = Vector3.Distance(target.position, closestPoint);
 
                 if (distance < nearestDistance)
@@ -44,13 +41,12 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.Globals
                 }
             }
 
-            // Offset the nearest position by 1 unit from the bounds
-            Vector3 offsetDirection = (nearestPosition - target.forward).normalized;
+            // Offset the nearest position by 1 unit away from the bounds
+            Vector3 offsetDirection = (target.position - nearestPosition).normalized;
             nearestPosition += offsetDirection;
-
-            // Optionally, you can apply pathfinding logic here to find the shortest path
 
             return nearestPosition;
         }
+
     }
 }

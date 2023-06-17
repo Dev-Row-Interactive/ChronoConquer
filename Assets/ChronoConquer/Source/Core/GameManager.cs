@@ -15,6 +15,7 @@ namespace DevRowInteractive.ChronoConquer.Source.Core
         [HideInInspector] public SelectionManager SelectionManager;
         [HideInInspector] public Map Map;
         [HideInInspector] public UnitController UnitController;
+
         public PlayerStats PlayerStats;
         public BuildingHandler BuildingHandler;
         public PlayerResources PlayerResources;
@@ -27,18 +28,11 @@ namespace DevRowInteractive.ChronoConquer.Source.Core
             if (Instance == null) Instance = this;
             else Destroy(gameObject);
         }
+
         private void Start() => StartCoroutine(InitializeGame());
-        private void OnDestroy()=> EndGame();
 
-        private void Update()
-        {
-            foreach (var resourceCount in PlayerResources.Resources)
-            {
-                Debug.Log(resourceCount.ResourceType.ToString() + ": " + resourceCount.Amount);
-            }
-        }
-
-
+        private void OnDestroy() => EndGame();
+        
         /// <summary>
         /// Get all References, instantiate everything and then call the event.
         /// </summary>
@@ -54,12 +48,11 @@ namespace DevRowInteractive.ChronoConquer.Source.Core
             PlayerSelectables = new PlayerSelectables();
             Gaia = new Gaia();
 
-
-
-            // Wait for the next frame to ensure all objects are initialized
-            yield return null;
-
             EventManager.InvokeGameInitialize();
+
+            yield return new WaitForEndOfFrame();
+
+            EventManager.InvokeLateInitializeGame();
         }
 
         private void StartGame()

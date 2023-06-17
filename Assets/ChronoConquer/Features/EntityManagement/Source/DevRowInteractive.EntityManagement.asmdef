@@ -1,5 +1,5 @@
 {
-    "name": "DevRowInteractive.EntityManagement",
+    "name": "EntityManagement",
     "rootNamespace": "DevRowInteractive",
     "references": [],
     "includePlatforms": [],

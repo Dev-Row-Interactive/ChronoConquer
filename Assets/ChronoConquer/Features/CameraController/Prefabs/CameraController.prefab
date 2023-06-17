@@ -48,8 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   zoomSpeed: 5
-  minZoom: 1
-  maxZoom: 6
+  minZoom: 4
+  maxZoom: 12
   borderThickness: 20
   MousePosition: {x: 0, y: 0, z: 0}
   ScrollWheel: 0
@@ -130,11 +130,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: -20
+  near clip plane: -100
   far clip plane: 100
   field of view: 60
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

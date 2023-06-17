@@ -1,5 +1,5 @@
 {
-    "name": "DevRowInteractive_Buildpipeline",
+    "name": "Buildpipeline",
     "rootNamespace": "DevRowInteractive",
     "references": [],
     "includePlatforms": [

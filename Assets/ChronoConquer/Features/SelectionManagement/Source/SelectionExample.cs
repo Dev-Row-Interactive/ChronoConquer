@@ -1,7 +1,6 @@
-using DevRowInteractive.SelectionManagement;
 using UnityEngine;
 
-namespace DevRowInteractive.ChronoConquer
+namespace DevRowInteractive.SelectionManagement
 {
     /// <summary>
     /// This class is an example implementation of the ISelectable interface.

@@ -10,7 +10,7 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.World.Abstracts
         private int formerLayer;
         private bool isSelected;
         
-        public virtual void Start()
+        public virtual void Awake()
         {
             formerLayer = gameObject.layer;
             EventManager.OnGameInitialize += Register;

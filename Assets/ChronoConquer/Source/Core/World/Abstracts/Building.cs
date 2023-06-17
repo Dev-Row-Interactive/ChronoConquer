@@ -8,8 +8,12 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.World.Abstracts
         public Transform RallyPoint;
         public LineRenderer LineRenderer;
 
-        private void Awake() => RallyPoint = transform.GetChild(0).transform.GetChild(0);
-        
+        public override void Awake()
+        {
+            base.Awake();
+            RallyPoint = transform.GetChild(0).transform.GetChild(0);
+        }
+
         public override void Select()
         {
             base.Select();

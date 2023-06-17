@@ -72,7 +72,7 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.Controllers
 
             for (int i = 0; i < movableObjects.Count; i++)
             {
-                float x = i % unitsPerRow - (unitsPerRow - 1) * 0.5f;
+                float x = i % unitsPerRow - (unitsPerRow - 1) * 0.25f;
                 float z = i / unitsPerRow;
 
                 Vector3 offset = new Vector3(x, 0, z);

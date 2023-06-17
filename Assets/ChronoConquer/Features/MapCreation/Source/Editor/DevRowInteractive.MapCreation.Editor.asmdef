@@ -1,5 +1,5 @@
 {
-    "name": "DevRowInteractive.MapCreation.Editor",
+    "name": "MapCreation.Editor",
     "rootNamespace": "DevRowInteractive",
     "references": [
         "GUID:81623a39a99588c488f00aefca6932cb"

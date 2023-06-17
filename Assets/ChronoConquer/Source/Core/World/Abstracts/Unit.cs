@@ -12,14 +12,13 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.World.Abstracts
         public AIPath Agent;
         public int Armor;
         public int Speed;
-        public virtual void Awake() => TryGetComponent(out Agent);
-
-        public override void Start()
+        public override void Awake()
         {
-            base.Start();
+            base.Awake();
+            TryGetComponent(out Agent);
             Agent.maxSpeed = Speed;
         }
-
+        
         public override bool IsMultiSelect() => true;
         
         public void MakeMovement(Vector3 destination) => Agent.destination = destination;

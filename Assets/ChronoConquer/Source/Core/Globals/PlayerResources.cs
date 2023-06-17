@@ -7,10 +7,10 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.Globals
     {
         public List<ResourceCount> Resources = new List<ResourceCount>()
         {
-            new ResourceCount(EResourceType.Wood, 0),
-            new ResourceCount(EResourceType.Food, 0),
-            new ResourceCount(EResourceType.Gold, 0),
-            new ResourceCount(EResourceType.Stone, 0)
+            new ResourceCount(EResourceType.Wood, 200),
+            new ResourceCount(EResourceType.Food, 200),
+            new ResourceCount(EResourceType.Gold, 100),
+            new ResourceCount(EResourceType.Stone, 100)
         };
 
         public void ModifyResourceAmount(ResourceCount res)
@@ -20,6 +20,18 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.Globals
                 if (resource.ResourceType == res.ResourceType)
                     resource.Amount += res.Amount;
             }
+            EventManager.InvokeResourceAmountChanged();
+        }
+
+        public int GetResourceAmount(EResourceType resourceType)
+        {
+            foreach (var resource in Resources)
+            {
+                if (resource.ResourceType == resourceType)
+                    return resource.Amount;
+            }
+
+            return 0; // Resource not found, return 0 as default amount
         }
     }
 }

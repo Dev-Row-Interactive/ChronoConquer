@@ -16,23 +16,29 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.World
         {
             if (gatherCoroutine != null)
                 Reset();
-
+            
             currentResource = resource;
             gatherCoroutine = StartCoroutine(GoToResource());
         }
 
         private IEnumerator GoToResource()
         {
-            // Search for another resource recursively
-            while (!currentResource.CanBeGathered())
+            // Start a loop to continuously search for a resource
+            while (!currentResource.CanBeGathered() && currentGatherSpot == Vector3.zero)
             {
-                currentResource = GameManager.Instance.Gaia.GetNearestResource(transform.position, currentResource);
+                // Search for the nearest resource of the right type
+                currentResource = GameManager.Instance.Gaia.GetNearestResourceOfType(currentResource.transform.position, currentResource.ResourceType, currentResource);
+
                 if (currentResource == null)
-                    yield break; // Exit the coroutine if no resource is found
-                yield return null;
+                {
+                    // If no resource of the right type is found, stop the coroutine
+                    StopCoroutine(gatherCoroutine);
+                    Reset();
+                    yield break;
+                }
             }
             
-            currentGatherSpot = currentResource.GetGatherSpot();
+            currentGatherSpot = currentResource.GetNearestGatherSpot(transform.position);
 
             MakeMovement(currentGatherSpot);
 
@@ -41,7 +47,6 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.World
 
             gatherCoroutine = StartCoroutine(GatherResource());
         }
-
 
         private IEnumerator GatherResource()
         {
@@ -76,6 +81,7 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.World
             {
                 currentResource.FreeGatherSpot(currentGatherSpot);
                 currentResource = null;
+                currentGatherSpot = Vector3.zero;
             }
 
             if (gatherCoroutine != null)

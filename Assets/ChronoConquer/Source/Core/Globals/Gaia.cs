@@ -29,11 +29,34 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.Globals
 
             return nearestResource;
         }
+
+        public Resource GetNearestResourceOfType(Vector3 position, EResourceType type, Resource exception = null)
+        {
+            Resource nearestResource = null;
+            float shortestDistance = float.MaxValue;
+
+            foreach (Resource resource in resources)
+            {
+                if (resource == exception)
+                    continue;
+
+                if (resource.ResourceType != type)
+                    continue;
+
+                float distance = Vector3.Distance(position, resource.gameObject.transform.position);
+                if (distance < shortestDistance)
+                {
+                    shortestDistance = distance;
+                    nearestResource = resource;
+                }
+            }
+
+            return nearestResource;
+        }
+
         public void RegisterResource(Resource resource)
         {
-            Debug.Log("CHECK");
             resources.Add(resource);
-            
             SetResourceGatherSpots();
         }
 
@@ -42,7 +65,7 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.Globals
             foreach (var resource in resources)
             {
                 var gatherSpots = resource.GetGatherSpots();
-        
+
                 // Check if any other resource is occupying the gather spot
                 foreach (var spot in gatherSpots.ToList()) // Create a copy of the list to iterate over
                 {
@@ -52,7 +75,7 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.Globals
                         gatherSpots.Remove(spot);
                     }
                 }
-                
+
                 resource.SetGatherSpots(gatherSpots);
             }
         }
