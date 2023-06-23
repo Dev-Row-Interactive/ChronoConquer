@@ -29,8 +29,19 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.Controllers
                             foreach (var selectedObject in currentlySelectedObjects)
                             {
                                 if (selectedObject.TryGetComponent<IGathering<Resource>>(out var gathering))
+                                {
                                     gathering.Gather(resource);
+                                }
                             }
+                        }
+                    }
+
+                    if (currentHoveredGameObject.TryGetComponent<IDepositable>(out var depositable))
+                    {
+                        foreach (var selectedObject in currentlySelectedObjects)
+                        {
+                            if (selectedObject.TryGetComponent<IGathering<Resource>>(out var gathering))
+                                gathering.Deliver(depositable);
                         }
                     }
                 }

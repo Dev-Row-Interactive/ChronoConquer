@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DevRowInteractive.ChronoConquer.Source.Core.World
 {
-    public class TownCenter : Building , IDepositable
+    public class TownCenter : ProductionBuilding , IDepositable
     {
         public Collider GetCollider()
         {

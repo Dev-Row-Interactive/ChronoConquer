@@ -2,6 +2,6 @@ namespace DevRowInteractive.CameraController
 {
     public static class MACROS_CAMERACONTROLLER
     {
-        public const bool CAMERACONTROLLER_ENABLED = true;
+        public const bool CAMERACONTROLLER_ENABLED = false;
     }
 }

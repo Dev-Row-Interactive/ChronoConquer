@@ -3,7 +3,11 @@
     "rootNamespace": "DevRowInteractive",
     "references": [
         "GUID:d774337c3ec57fd48a9a11bc0572832e",
-        "GUID:6055be8ebefd69e48b49212b09b47b2f"
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:b747a463461c55d4b97392597631d633",
+        "GUID:acb4997468c7e6449826d4731a27e0cc",
+        "GUID:b8ba44fa92b2a8a4fa26ecc050d3f55c",
+        "GUID:f8fc7e8121cf44344b3f1638bedc352e"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

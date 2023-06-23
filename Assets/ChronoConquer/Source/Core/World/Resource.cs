@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using DevRowInteractive.ChronoConquer.Source.Core.Macros;
 using DevRowInteractive.ChronoConquer.Source.Core.World.Abstracts;
 using UnityEngine;
@@ -8,11 +7,13 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.World
 {
     public class Resource : GaiaObject
     {
+        public int CurrentResourceAmount;
         public EResourceType ResourceType;
         private List<Vector3> availableGatherSpots;
 
         public override void Awake()
         {
+            CurrentResourceAmount = MACROS_RESOURCES.INITIAL_RESOURCE_CAPACITY;
             base.Awake();
             EventManager.OnLateInitializeGame += CheckSpots;
         }
@@ -127,9 +128,6 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.World
             }
         }
 
-        public void FreeGatherSpot(Vector3 spot)
-        {
-            availableGatherSpots.Add(spot);
-        }
+        public void FreeGatherSpot(Vector3 spot) => availableGatherSpots.Add(spot);
     }
 }

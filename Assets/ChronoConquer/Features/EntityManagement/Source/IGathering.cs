@@ -8,5 +8,6 @@
     public interface IGathering <in T>
     {
         void Gather(T resource);
+        void Deliver(IDepositable target);
     }
 }

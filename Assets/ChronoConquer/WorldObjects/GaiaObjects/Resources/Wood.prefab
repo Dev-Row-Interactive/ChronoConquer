@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5875377646630822979
 MeshFilter:
@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c29eaff5ac94977a52a6045bdfb7a87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 
-  Image: {fileID: 0}
+  Name: Wood
+  Icon: {fileID: 21300000, guid: 60aa1edcac8230f4c9bf49e7694e1687, type: 3}
+  CurrentResourceAmount: 0
   ResourceType: 0

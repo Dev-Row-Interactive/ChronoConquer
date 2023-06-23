@@ -2,27 +2,41 @@ using DevRowInteractive.ChronoConquer.Source.Core;
 using DevRowInteractive.ChronoConquer.Source.Core.World;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DevRowInteractive.ChronoConquer.UI.Source
 {
     public class ResourceField : MonoBehaviour
     {
-        [SerializeField] private EResourceType resourceType;
+        [SerializeField] private EResourceType resource;
+        [SerializeField] private Sprite sprite;
         private TextMeshProUGUI countText;
+        private Image thumbnail;
+        private int currentCount = 0;
         
         private void Awake()
         {
             transform.GetChild(0).TryGetComponent(out countText);
-            EventManager.OnGameInitialize += Initialize;
+            transform.GetChild(2).TryGetComponent(out thumbnail);
+            EventManager.OnLateInitializeGame += Initialize;
         }
 
         // Initialize Values
         private void Initialize()
         {
             EventManager.OnResourceAmountChanged += UpdateResources;
-            UpdateResources();
+            thumbnail.sprite = sprite;
+
+            ResourceCount resourceCount = new ResourceCount(resource,
+                GameManager.Instance.PlayerResources.GetResourceAmount(resource));
+            
+            UpdateResources(resourceCount);
         }
 
-        private void UpdateResources() => countText.text = GameManager.Instance.PlayerResources.GetResourceAmount(resourceType).ToString();
+        private void UpdateResources(ResourceCount resourceCount)
+        {
+            if(resource == resourceCount.ResourceType)
+                countText.text = (currentCount + resourceCount.Amount).ToString();
+        }
     }
 }

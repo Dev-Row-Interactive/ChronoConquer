@@ -7,23 +7,23 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.Globals
 {
     public class BuildingHandler
     {
-        private List<Building> buildings = new List<Building>();
+        private List<ProductionBuilding> buildings = new List<ProductionBuilding>();
 
         private List<IDepositable> resourceDropOffPoints =
             new List<IDepositable>();
-        public void RegisterBuilding(Building building)
+        public void RegisterBuilding(ProductionBuilding productionBuilding)
         {
-            buildings.Add(building);
+            buildings.Add(productionBuilding);
 
-            if (building.TryGetComponent<IDepositable>(out var depositable))
+            if (productionBuilding.TryGetComponent<IDepositable>(out var depositable))
             {
                 resourceDropOffPoints.Add(depositable);
             }
         }
 
-        public Vector3 FindNearestBoundBorderPosition(Transform target)
+        public Vector3 FindNearestBoundBorderPosition(Transform target, IDepositable targetDepositable = null)
         {
-            IDepositable nearestDepositable = null;
+            IDepositable nearestDepositable = targetDepositable;
             float nearestDistance = float.MaxValue;
             Vector3 nearestPosition = Vector3.zero;
 
@@ -47,6 +47,5 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.Globals
 
             return nearestPosition;
         }
-
     }
 }

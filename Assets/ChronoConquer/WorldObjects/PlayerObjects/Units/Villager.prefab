@@ -78,14 +78,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf29a89e4966424297a2d044307ac3e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 
-  Image: {fileID: 0}
-  HitPoints: 0
-  Cost: 0
+  Name: Villager
+  Icon: {fileID: 21300000, guid: 2f66e0f7af407bd4dbf2e1786c9c8360, type: 3}
+  CurrentHitPoints: 0
+  InitialHitpoints: 120
   AttackDamage: 0
   Agent: {fileID: 0}
   Armor: 0
   Speed: 2
+  ProductionTime: 10
+  Costs:
+  - ResourceType: 1
+    Amount: 50
+  Prefab: {fileID: 3488243543280880971}
 --- !u!136 &3017015413336454957
 CapsuleCollider:
   m_ObjectHideFlags: 0

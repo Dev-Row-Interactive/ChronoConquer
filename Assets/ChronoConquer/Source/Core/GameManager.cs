@@ -10,19 +10,17 @@ namespace DevRowInteractive.ChronoConquer.Source.Core
 {
     public class GameManager : MonoBehaviour
     {
-        public static GameManager Instance;
-
-        [HideInInspector] public SelectionManager SelectionManager;
-        [HideInInspector] public Map Map;
-        [HideInInspector] public UnitController UnitController;
-
         public PlayerStats PlayerStats;
         public BuildingHandler BuildingHandler;
         public PlayerResources PlayerResources;
         public PlayerSelectables PlayerSelectables;
         public Gaia Gaia;
+        
+        [HideInInspector] public SelectionManager SelectionManager;
+        [HideInInspector] public Map Map;
+        [HideInInspector] public UnitController UnitController;
 
-
+        public static GameManager Instance;
         private void Awake()
         {
             if (Instance == null) Instance = this;
@@ -33,9 +31,6 @@ namespace DevRowInteractive.ChronoConquer.Source.Core
 
         private void OnDestroy() => EndGame();
         
-        /// <summary>
-        /// Get all References, instantiate everything and then call the event.
-        /// </summary>
         private IEnumerator InitializeGame()
         {
             Map = FindObjectOfType<Map>();
@@ -47,9 +42,13 @@ namespace DevRowInteractive.ChronoConquer.Source.Core
             PlayerResources = new PlayerResources();
             PlayerSelectables = new PlayerSelectables();
             Gaia = new Gaia();
+            
+            SelectionManager.OnSelect += EventManager.InvokeSelectableSelected;
+            SelectionManager.OnDeSelect += EventManager.InvokeSelectableDeSelected;
 
             EventManager.InvokeGameInitialize();
 
+            // Wait for a frame to call LateInitialize
             yield return new WaitForEndOfFrame();
 
             EventManager.InvokeLateInitializeGame();

@@ -30,14 +30,14 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.Globals
             return nearestResource;
         }
 
-        public Resource GetNearestResourceOfType(Vector3 position, EResourceType type, Resource exception = null)
+        public Resource GetNearestResourceOfType(Vector3 position, EResourceType type, List<Resource> exceptions = null)
         {
             Resource nearestResource = null;
             float shortestDistance = float.MaxValue;
 
             foreach (Resource resource in resources)
             {
-                if (resource == exception)
+                if (exceptions != null && exceptions.Contains(resource))
                     continue;
 
                 if (resource.ResourceType != type)
@@ -54,8 +54,12 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.Globals
             return nearestResource;
         }
 
+
         public void RegisterResource(Resource resource)
         {
+            if(resources.Contains(resource))
+                return;
+            
             resources.Add(resource);
             SetResourceGatherSpots();
         }

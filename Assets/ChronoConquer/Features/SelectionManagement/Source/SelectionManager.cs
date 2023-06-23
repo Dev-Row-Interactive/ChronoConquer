@@ -1,11 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 
 namespace DevRowInteractive.SelectionManagement
 {
     public class SelectionManager : MonoBehaviour
     {
+        public delegate void SelectionEvent(ISelectable selectable);
+
+        public event SelectionEvent OnSelect;
+        public event SelectionEvent OnDeSelect;
+
         [SerializeField] private Color rectangleColor = new Color(0.5f, 1f, 0.4f, 0.2f);
 
         private Vector3 offset = new Vector3(-3.5f, 5, -3.5f);
@@ -33,6 +40,9 @@ namespace DevRowInteractive.SelectionManagement
             if (selectableObjects == null || selectableObjects.Count == 0)
                 Debug.LogWarning("Please provide SelectableObjects that implement the ISelectable Interface");
 
+            if (IsMouseOverUi())
+                return;
+
             DoRaycast();
         }
 
@@ -45,8 +55,8 @@ namespace DevRowInteractive.SelectionManagement
                 selectionStartPosition = screenMousePosition;
 
             selectionEndPosition = screenMousePosition;
-            
-            if(!isSelecting)
+
+            if (!isSelecting)
                 ClearHover();
 
             if (isSelecting)
@@ -63,10 +73,9 @@ namespace DevRowInteractive.SelectionManagement
                 {
                     if (!currentlyHovered.Contains(selectable))
                     {
-                        if(!isSelecting)
+                        if (!isSelecting)
                             HandleHover(selectable);
                     }
-                        
 
                     if (Mouse.current.leftButton.wasPressedThisFrame && !currentlySelected.Contains(selectable))
                         HandleSelection(selectable);
@@ -84,25 +93,26 @@ namespace DevRowInteractive.SelectionManagement
         {
             Bounds selectionBounds =
                 SelectionHelpers.GetViewportBounds(camera, selectionStartPosition, screenMousePosition);
-            
+
             foreach (GameObject obj in selectableObjects)
             {
                 if (selectionBounds.Contains(camera.WorldToViewportPoint(obj.transform.position)))
                 {
                     obj.TryGetComponent<ISelectable>(out var selectable);
-                    
+
                     if (selectable.IsMultiSelect())
                     {
                         selectable.Hover();
                         currentlyHovered.Add(selectable);
                     }
-                    
+
                     if (Mouse.current.leftButton.wasReleasedThisFrame)
                     {
                         ClearHover();
 
                         if (selectable.IsMultiSelect())
                         {
+                            OnSelect?.Invoke(selectable);
                             selectable.Select();
                             currentlySelected.Add(selectable);
                         }
@@ -122,6 +132,7 @@ namespace DevRowInteractive.SelectionManagement
             ClearSelection();
             selectable.Select();
             currentlySelected.Add(selectable);
+            OnSelect?.Invoke(selectable);
         }
 
         private void HandleHover(ISelectable selectable)
@@ -148,6 +159,7 @@ namespace DevRowInteractive.SelectionManagement
             }
 
             currentlySelected.Clear();
+            OnDeSelect?.Invoke(null);
         }
 
         private void OnGUI()
@@ -184,6 +196,11 @@ namespace DevRowInteractive.SelectionManagement
             if (currentlyHovered.Count > 0)
                 return currentlyHovered[0].GetGameObjectReference();
             return null;
+        }
+
+        private bool IsMouseOverUi()
+        {
+            return EventSystem.current.IsPointerOverGameObject();
         }
     }
 }

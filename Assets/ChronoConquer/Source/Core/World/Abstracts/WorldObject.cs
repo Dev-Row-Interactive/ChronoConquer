@@ -1,3 +1,4 @@
+using System;
 using DevRowInteractive.SelectionManagement;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.World.Abstracts
     public abstract class WorldObject : MonoBehaviour, ISelectable
     {
         public string Name;
-        public Sprite Image;
+        public Sprite Icon;
         private int formerLayer;
         private bool isSelected;
         
@@ -46,7 +47,7 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.World.Abstracts
 
         public virtual void Reset()
         {
-            //
+            
         }
 
         public GameObject GetGameObjectReference()

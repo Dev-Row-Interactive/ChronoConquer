@@ -18,9 +18,11 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.Globals
             foreach (var resource in Resources)
             {
                 if (resource.ResourceType == res.ResourceType)
+                {
                     resource.Amount += res.Amount;
+                    EventManager.InvokeResourceAmountChanged(resource);
+                }
             }
-            EventManager.InvokeResourceAmountChanged();
         }
 
         public int GetResourceAmount(EResourceType resourceType)

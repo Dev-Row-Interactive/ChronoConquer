@@ -1,4 +1,6 @@
-﻿using DevRowInteractive.EntityManagement;
+﻿using System.Collections.Generic;
+using DevRowInteractive.EntityManagement;
+using DevRowInteractive.UnitProduction;
 using Pathfinding;
 using Pathfinding.RVO;
 using UnityEngine;
@@ -7,11 +9,14 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.World.Abstracts
 {
     [RequireComponent(typeof(AIPath))]
     [RequireComponent(typeof(RVOController))]
-    public abstract class Unit : PlayerObject, IMovable
+    public abstract class Unit : PlayerObject, IMovable, IProduceable
     {
-        public AIPath Agent;
+        [HideInInspector] public AIPath Agent;
         public int Armor;
         public int Speed;
+        public float ProductionTime;
+        public List<ResourceCount> Costs;
+        public GameObject Prefab;
         public override void Awake()
         {
             base.Awake();
@@ -24,5 +29,10 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.World.Abstracts
         public void MakeMovement(Vector3 destination) => Agent.destination = destination;
         public void StopMovement() => Agent.isStopped = true;
         public bool IsAtDestination() => Agent.reachedDestination;
+
+        public GameObject GetGameObjectReference()
+        {
+            return gameObject;
+        }
     }
 }
