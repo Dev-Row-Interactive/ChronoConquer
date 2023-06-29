@@ -1,20 +1,20 @@
 {
-    "name": "ChronoConquer_UI",
+    "name": "ChronoConquer.Source.Core.Managers",
     "rootNamespace": "DevRowInteractive",
     "references": [
-        "GUID:d774337c3ec57fd48a9a11bc0572832e",
-        "GUID:b8ba44fa92b2a8a4fa26ecc050d3f55c",
         "GUID:b747a463461c55d4b97392597631d633",
-        "GUID:f8fc7e8121cf44344b3f1638bedc352e",
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:acb4997468c7e6449826d4731a27e0cc"
+        "GUID:c8390f03cf1ddd64e8e0fe52c6c0160b",
+        "GUID:4ede475621c4ab64a90fe594cecb6625",
+        "GUID:81623a39a99588c488f00aefca6932cb",
+        "GUID:f6a5c042dfff4de993a9eca1057ec0b6",
+        "GUID:c212b9b921987584cad4680f30f3e2f3"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
-    "autoReferenced": false,
+    "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false

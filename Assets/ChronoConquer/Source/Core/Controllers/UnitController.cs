@@ -2,12 +2,13 @@
 using DevRowInteractive.ChronoConquer.Source.Core.World;
 using DevRowInteractive.EntityManagement;
 using DevRowInteractive.SelectionManagement;
+using DevRowInteractive.UnitControl;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace DevRowInteractive.ChronoConquer.Source.Core.Controllers
 {
-    public class UnitController : MonoBehaviour
+    public class UnitController : MonoBehaviour, IUnitController
     {
         private GameObject currentHoveredGameObject;
         private List<GameObject> currentlySelectedObjects;

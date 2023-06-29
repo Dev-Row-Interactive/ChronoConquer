@@ -15,7 +15,7 @@ namespace DevRowInteractive.ChronoConquer.Source.Core.World
         {
             CurrentResourceAmount = MACROS_RESOURCES.INITIAL_RESOURCE_CAPACITY;
             base.Awake();
-            EventManager.OnLateInitializeGame += CheckSpots;
+            EventManager.OnLateGameInitialize += CheckSpots;
         }
 
         private void SetSpots()

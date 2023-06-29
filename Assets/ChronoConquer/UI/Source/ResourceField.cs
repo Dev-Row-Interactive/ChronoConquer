@@ -18,11 +18,11 @@ namespace DevRowInteractive.ChronoConquer.UI.Source
         {
             transform.GetChild(0).TryGetComponent(out countText);
             transform.GetChild(2).TryGetComponent(out thumbnail);
-            EventManager.OnLateInitializeGame += Initialize;
+            EventManager.OnLateGameInitialize += GameInitialize;
         }
 
         // Initialize Values
-        private void Initialize()
+        private void GameInitialize()
         {
             EventManager.OnResourceAmountChanged += UpdateResources;
             thumbnail.sprite = sprite;

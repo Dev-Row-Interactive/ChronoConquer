@@ -1,0 +1,14 @@
+{
+    "name": "ChronoConquer.Source.Core.Globals",
+    "rootNamespace": "DevRowInteractive",
+    "references": ["GUID:c8390f03cf1ddd64e8e0fe52c6c0160b","GUID:f8fc7e8121cf44344b3f1638bedc352e","GUID:034b3512fa8f8d6489010016c362d9bd"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

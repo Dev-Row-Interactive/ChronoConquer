@@ -2,32 +2,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
 
 namespace DevRowInteractive.SelectionManagement
 {
-    public class SelectionManager : MonoBehaviour
+    public class SelectionManager : MonoBehaviour, ISelectionManager
     {
-        public delegate void SelectionEvent(ISelectable selectable);
-
-        public event SelectionEvent OnSelect;
-        public event SelectionEvent OnDeSelect;
+        public event ISelectionManager.SelectionEvent OnSelect;
+        public event ISelectionManager.SelectionEvent OnDeSelect;
+        public event ISelectionManager.SelectionEvent OnHover;
+        public event ISelectionManager.SelectionEvent OnDehover;
 
         [SerializeField] private Color rectangleColor = new Color(0.5f, 1f, 0.4f, 0.2f);
 
-        private Vector3 offset = new Vector3(-3.5f, 5, -3.5f);
+        private readonly Vector3 offset = new Vector3(-3.5f, 5f, -3.5f);
         private Vector2 screenMousePosition;
         private Vector3 worldMousePosition;
         private Vector2 selectionStartPosition;
         private Vector2 selectionEndPosition;
-        private List<ISelectable> currentlySelected = new List<ISelectable>();
-        private List<ISelectable> currentlyHovered = new List<ISelectable>();
+        private readonly List<ISelectable> currentlySelected = new List<ISelectable>();
+        private readonly List<ISelectable> currentlyHovered = new List<ISelectable>();
         private bool isSelecting;
         private Rect selectionRect;
         private Camera camera = new Camera();
 
         private List<GameObject> selectableObjects = new List<GameObject>();
-        public void AddSelectableObject(GameObject obj) => selectableObjects.Add(obj);
+
+
+        #region Unity Event Methods
 
         private void Start()
         {
@@ -45,6 +46,63 @@ namespace DevRowInteractive.SelectionManagement
 
             DoRaycast();
         }
+
+        private void OnGUI()
+        {
+            if (isSelecting)
+            {
+                selectionRect = SelectionHelpers.GetScreenRect(selectionStartPosition, selectionEndPosition);
+                SelectionHelpers.DrawScreenRect(selectionRect, rectangleColor);
+                SelectionHelpers.DrawScreenRectBorder(selectionRect, 1, rectangleColor);
+            }
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public void AddSelectableObject(GameObject obj) => selectableObjects.Add(obj);
+
+        #endregion
+
+        #region Public Getters
+
+        public Vector3 GetWorldMousePosition()
+        {
+            return worldMousePosition;
+        }
+
+        public List<GameObject> GetSelectedObjects()
+        {
+            List<GameObject> selected = new List<GameObject>();
+
+            foreach (var selectable in currentlySelected)
+            {
+                selected.Add(selectable.GetGameObjectReference());
+            }
+
+            return selected;
+        }
+
+        public GameObject GetCurrentHover()
+        {
+            if (currentlyHovered.Count > 0)
+                return currentlyHovered[0].GetGameObjectReference();
+            return null;
+        }
+
+        #endregion
+
+        #region Private Getters
+
+        private bool IsMouseOverUi()
+        {
+            return EventSystem.current.IsPointerOverGameObject();
+        }
+
+        #endregion
+
+        #region Private Methods
 
         private void DoRaycast()
         {
@@ -162,45 +220,6 @@ namespace DevRowInteractive.SelectionManagement
             OnDeSelect?.Invoke(null);
         }
 
-        private void OnGUI()
-        {
-            if (isSelecting)
-            {
-                selectionRect = SelectionHelpers.GetScreenRect(selectionStartPosition, selectionEndPosition);
-                SelectionHelpers.DrawScreenRect(selectionRect, rectangleColor);
-                SelectionHelpers.DrawScreenRectBorder(selectionRect, 1, rectangleColor);
-            }
-        }
-
-        public Vector3 GetWorldMousePosition()
-        {
-            return worldMousePosition;
-        }
-
-        public void SetCamera(Camera camera) => camera = camera;
-
-        public List<GameObject> GetSelectedObjects()
-        {
-            List<GameObject> selected = new List<GameObject>();
-
-            foreach (var selectable in currentlySelected)
-            {
-                selected.Add(selectable.GetGameObjectReference());
-            }
-
-            return selected;
-        }
-
-        public GameObject GetCurrentHover()
-        {
-            if (currentlyHovered.Count > 0)
-                return currentlyHovered[0].GetGameObjectReference();
-            return null;
-        }
-
-        private bool IsMouseOverUi()
-        {
-            return EventSystem.current.IsPointerOverGameObject();
-        }
+        #endregion
     }
 }
